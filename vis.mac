@@ -1,0 +1,33 @@
+/tracking/verbose 0
+#/gun/number 100
+/g4cmp/voltage 0.01 volt
+
+/g4cmp/producePhonons 0.
+/g4cmp/sampleLuke 0.
+#/g4cmp/hTrappingMFP 1 um
+#/g4cmp/eTrappingMFP 200 um
+
+
+/gun/particle mu-
+/gun/energy 4 GeV
+/gun/direction 0 0 1
+/gun/position 0 0 -10 cm
+
+/run/initialize
+/vis/open OGL
+/vis/viewer/set/upVector 1 0 0
+/vis/viewer/set/viewpointVector 1 0 1
+/vis/viewer/zoomTo 2
+/vis/drawVolume
+/vis/scene/add/trajectories
+# /vis/scene/add/hits
+
+
+
+/run/beamOn 1
+
+#/run/beamOn 1
+/vis/ogl/set/printFilename g4cmpCharge
+/vis/ogl/set/printMode pixmap
+/vis/ogl/printEPS
+/vis/viewer/clear

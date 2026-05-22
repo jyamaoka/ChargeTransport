@@ -1,0 +1,35 @@
+# run.mac — production run for 660 keV gamma / Si cube simulation
+#
+# G4CMP charge-carrier settings:
+#   produceCharges 1.0  = track all e/h pairs (slow, full statistics)
+#   produceCharges 0.1  = track 10% of pairs, each with weight 10 (faster)
+#   samplingEnergy sets a per-step energy threshold above which carriers are
+#   downsampled — lower values = more tracks = higher accuracy but slower.
+#
+# The EM production cut controls the minimum range of secondary electrons.
+# DBL_MIN (physics list default) tracks every e-, which is correct for G4CMP
+# energy partitioning but makes gamma showers expensive.  For production runs
+# with many gammas, raise it via /run/setCut to reduce shower size while
+# G4CMP's secondary production still captures the deposited energy correctly.
+
+# Raise EM secondary production cut to reduce shower multiplicity
+/run/setCut 0.1 mm
+
+# Only produce charge carriers (no phonons for speed)
+/g4cmp/produceCharges 0.1
+/g4cmp/producePhonons 0.0
+
+# Initialize
+/run/initialize
+
+# Print progress every 1000 events
+/run/printProgress 1000
+/run/verbose 1
+/event/verbose 0
+/tracking/verbose 0
+
+# Number of threads (uses all hardware threads by default in MT build;
+# set explicitly if desired, e.g. /run/numberOfThreads 4)
+
+# Shoot 10000 gammas
+/run/beamOn 10000
